@@ -17,19 +17,19 @@
 
     <!-- Cards Section -->
     <div class="cards">
-        <div class="card">
+        <div id="temp" class="card">
             <h2>Temperature 🌡️</h2>
-            <p class="value" id="tempValue">32°C</p>
+            <p class="value" id="tempValue">LOADING</p>
         </div>
 
-        <div class="card">
+        <div id="hum" class="card">
             <h2>Humidity</h2>
-            <p class="value" id="humValue">47%</p>
+            <p class="value" id="humValue">LOADING</p>
         </div>
 
         <div class="card">
             <h2>Atmos Score</h2>
-            <p class="value" id="scoreValue">89</p>
+            <p class="value" id="scoreValue">LOADING</p>
         </div>
     </div>
 
@@ -51,13 +51,20 @@
 
     <!-- Footer -->
     <p class="credit">
-        MADE BY SOMNATH PAN, SOUNAKE SIMALI,SOUMYAKANTA SEN TUSHAR KARMAKAR WITH 🔥💡
+        MADE BY SOMNATH PAN, SOUNOKE SIMALI,SOUMYAKANTA SEN TUSHAR KARMAKAR WITH 💥❤️
     </p>
 
     <a class="visit-btn" href="/public/project-env.html">VISIT PROJECT AEROVIEW</a>
     <a class="visit-btn" href="/public/index.html">VISIT OUR TEAM</a>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
+
+<!-- Firebase Realtime Database (compat) -->
+<script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-database-compat.js"></script>
+
+<script src="config.js"></script>
 <script src="script.js"></script>
+<script src="atmos-lib.js"></script>
 </body>
 </html>
