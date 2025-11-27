@@ -17,7 +17,7 @@ async function generateEnvSummary(temp, hum, score) {
     const prompt = `The current indoor temperature is ${temp}°C and humidity is ${hum}%. The Atmos Score is ${score}. 
     Give a short friendly summary of how the environment is and any tips for comfort.`;
     
-    const res = await fetch("/api/ai-key", {
+    const res = await fetch("https://aero-view-prs.vercel.app/api/ai-key", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt })
