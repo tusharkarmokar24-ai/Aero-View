@@ -11,6 +11,31 @@ function getAtmosScore(temp, hum) {
 
 const dataRef = db.ref("DATA");
 
+// Function to call AI endpoint
+async function generateEnvSummary(temp, hum, score) {
+  try {
+    const prompt = `The current indoor temperature is ${temp}°C and humidity is ${hum}%. The Atmos Score is ${score}. 
+    Give a short friendly summary of how the environment is and any tips for comfort.`;
+    
+    const res = await fetch("/api/gemini", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt })
+    });
+    
+    const data = await res.json();
+    
+    if (data.result) {
+      document.getElementById("aiResponse").innerHTML = data.result;
+    } else {
+      document.getElementById("aiResponse").innerHTML = "Unable to get AI summary.";
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById("aiResponse").innerHTML = "Error fetching AI summary.";
+  }
+}
+
 // Step 1: get the latest date folder
 dataRef.orderByKey().limitToLast(1).once("value")
   .then(snapshot => {
@@ -33,6 +58,9 @@ dataRef.orderByKey().limitToLast(1).once("value")
             
             const score = getAtmosScore(item.temp, item.hum);
             document.getElementById("scoreValue").innerHTML = score;
+            
+            // Send to AI endpoint
+            generateEnvSummary(item.temp, item.hum, score);
           });
           
         });
@@ -41,4 +69,5 @@ dataRef.orderByKey().limitToLast(1).once("value")
   })
   .catch(error => {
     console.error(error);
+    document.getElementById("aiResponse").innerHTML = "Failed to fetch sensor data.";
   });
